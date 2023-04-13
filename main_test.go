@@ -41,54 +41,31 @@ func TestIsPrime(t *testing.T) {
 }
 
 func TestPrompt(t *testing.T) {
-	//save copy of os.Stdout
 	oldOut := os.Stdout
-
-	//create read and write pipe
 	r, w, _ := os.Pipe()
-
-	//set os.Stdout to write pipe
 	os.Stdout = w
-
 	prompt()
-
-	//close writer
 	_ = w.Close()
-
-	//reset os.Stdout
 	os.Stdout = oldOut
-
-	//read output dari myPrompt() func
 	out, _ := io.ReadAll(r)
-
-	//perform test
 	if string(out) != "-> " {
 		t.Errorf("Incorrect prompt: expected -> but got %s", string(out))
 	}
 }
 
 func TestIntro(t *testing.T) {
-	//save copy of os.Stdout
 	oldOut := os.Stdout
-
-	//create read and write pipe
 	r, w, _ := os.Pipe()
-
-	//set os.Stdout to write pipe
 	os.Stdout = w
 
 	intro()
 
-	//close writer
 	_ = w.Close()
 
-	//reset os.Stdout
 	os.Stdout = oldOut
 
-	//read output dari myPrompt() func
 	out, _ := io.ReadAll(r)
 
-	//perform test
 	if !strings.Contains(string(out), "Enter whole number") {
 		t.Errorf("Incorrect intro text, got %s", string(out))
 	}
